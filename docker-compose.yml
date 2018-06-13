@@ -6,15 +6,17 @@ services:
   convertit:
      image: makinacorpus/convertit
      hostname: convertit
-     extra_hosts:
-       - "${DOMAIN_NAME}:37.187.132.176"
+     # uncomment to allow containers resolve DNS if it is not public
+     #extra_hosts:
+     #  - "${DOMAIN_NAME}:37.187.XXX.XXX"
 
   screamshotter:
      image: makinacorpus/screamshotter
      environment:
        - DJANGO_SETTINGS_MODULE=screamshotter.settings
-     extra_hosts:
-       - "${DOMAIN_NAME}:37.187.132.176"
+     # uncomment to allow containers resolve DNS if it is not public
+     #extra_hosts:
+     #  - "${DOMAIN_NAME}:37.187.XXX.XXX"
      depends_on:
        - convertit
 
@@ -22,7 +24,7 @@ services:
     image: memcached:1.5-alpine
 
   celery:
-    image: geotrekce/admin:latest
+    image: geotrekce/admin:${GEOTREK_VERSION}
     env_file:
       - .env
     depends_on:
@@ -35,9 +37,11 @@ services:
     command: celery -A geotrek worker -l warning
 
   web:
-     image: geotrekce/admin:latest
+     image: geotrekce/admin:${GEOTREK_VERSION}
+     # change port 8002 to one available
+     # fix port in geotrek.nginx.conf / django upstream
      ports:
-       - "9002:8000"
+       - "127.0.0.1:8002:8000"
      env_file:
        - .env
      volumes:
@@ -47,9 +51,11 @@ services:
      command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000
 
   api:
-     image: geotrekce/admin:latest
+     image: geotrekce/admin:${GEOTREK_VERSION}
+     # change port 8001 to one available
+     # fix port in geotrek.nginx.conf / api upstream
      ports:
-       - "9001:8000"
+       - "8001:8000"
      env_file:
        - .env
      volumes:
