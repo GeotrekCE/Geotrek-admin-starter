@@ -1,5 +1,4 @@
-
 /.env
-/var/
+/var/*
 !/var/conf/
 
