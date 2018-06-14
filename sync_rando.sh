@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-/usr/local/bin/docker-compose run web ./manage.py sync_rando -v2 --url http://admin.geotrek.fr --rando-url http://rando.geotrek.fr /app/src/var/data
+cd /home/arche-agglo/arche-agglo-admin
+
+/usr/local/bin/docker-compose run web ./manage.py sync_rando -v2 --url http://geotrek-ardeche-hermitage.fr --rando-url http:rando-ardeche-hermitage.fr /app/src/var/data
