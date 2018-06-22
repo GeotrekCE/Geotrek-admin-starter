@@ -1,5 +1,4 @@
-# import os
-
+from geotrek.settings.base import LEAFLET_CONFIG
 #
 # BASIC SETTINGS
 # ..............
@@ -8,27 +7,47 @@
 #
 DEFAULT_STRUCTURE_NAME = 'PNRP' # -> Name for your default structure. Can be changed in geotrek admin interface
 #
-SPATIAL_EXTENT = (481277, 6759740, 592473, 6864229)
+SPATIAL_EXTENT = (500413.05, 6773442.40, 577989.04, 6851411.72)
+
+ALTIMETRIC_PROFILE_MIN_YSCALE = 600
+
 # spatial bbox in your own projection (example here with 2154)
 # this spatial_extent will limit map exploration, and will cut your raster imports
 #
 # LANGUAGE_CODE = 'en' # for web interface. default to fr (French)
 
-# MODELTRANSLATION_LANGUAGES = ('en', 'fr', 'it', 'es')
+MODELTRANSLATION_LANGUAGES = ('en', 'fr',)
 # Change with your own wanted translations
 # ex: MODELTRANSLATION_LANGUAGES = ('en', 'fr', 'de', 'ne')
 
-# ADMINS = (
-#     ('admin1', 'admin1@geotrek.fr'), # change with tuple ('your name', 'your@address.mail')
-# )
+ADMINS = (
+    ('GEOTREK', 'support-geotrek@lists.makina-corpus.com'),
+    ('admin1', 'jonathan.allain@parc-naturel-perche.fr'),
+    ('admin2', 'fabienne.debuchy@parc-naturel-perche.fr'),
+    ('admin2', 'contact@parc-naturel-perche.fr'),
+)
 # used to send error mails
 
-# MANAGERS = (
-#     ('manager1', 'manager1@geotrek.fr'), # change with tuple ('your name', 'your@address.mail')
-# )
+MANAGERS = (
+    ('manager1', 'fabienne.debuchy@parc-naturel-perche.fr'),
+)
 
-# or MANAGERS = ADMIN
-# used to send report mail
+LEAFLET_CONFIG['TILES'] = [
+    ('Scan',
+'//gpp3-wxs.ign.fr/b746xijzy2ihmjn3whljl0l9/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+'&copy; IGN - GeoPortail'),
+    ('Scan Express',
+'//gpp3-wxs.ign.fr/b746xijzy2ihmjn3whljl0l9/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+'&copy; IGN - GeoPortail'),
+    ('Ortho',
+'//gpp3-wxs.ign.fr/b746xijzy2ihmjn3whljl0l9/geoportail/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+'&copy; IGN - GeoPortail'),
+    ('OSM', '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', '(c) OpenStreetMap Contributors'),
+]
+
+SPLIT_TREKS_CATEGORIES_BY_PRACTICE = True
+
+
 
 # TIME_ZONE="Europe/Paris"
 # set your timezone for date format. For France, uncomment line beside
