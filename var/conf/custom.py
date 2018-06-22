@@ -56,10 +56,10 @@ SPLIT_TREKS_CATEGORIES_BY_PRACTICE = True
 #
 # MAIL SETTINGS
 # ..........................
-# DEFAULT_FROM_EMAIL =
+DEFAULT_FROM_EMAIL = "noreply@geotrek-perche.makina-corpus.net"
 # address will be set for sended emails (ex: noreply@yourdomain.net)
-# SERVER_EMAIL = DEFAULT_FROM_EMAIL
-# EMAIL_HOST =
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+EMAIL_HOST = "127.0.0.1"
 # EMAIL_HOST_USER =
 # EMAIL_HOST_PASSWORD =
 # EMAIL_HOST_PORT =
