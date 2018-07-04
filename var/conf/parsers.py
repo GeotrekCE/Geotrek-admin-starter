@@ -20,7 +20,7 @@ class TourinsoftParser61(TourInSoftParser):
     fields = {
         'eid': 'SyndicObjectID',
         'name': 'SyndicObjectName',
-        'description': 'DescriptionCommerciale',
+        'description_teaser': 'DescriptionCommerciale',
         'geom': ('GmapLongitude', 'GmapLatitude'),
         'category': 'ObjectTypeName',
         'practical_info': (
