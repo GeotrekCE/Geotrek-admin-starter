@@ -22,7 +22,7 @@ services:
     image: memcached:1.5-alpine
 
   celery:
-    image: geotrekce/admin:2.19.1
+    image: geotrekce/admin:2.20.1
     env_file:
       - .env
     depends_on:
@@ -35,7 +35,7 @@ services:
     command: celery -A geotrek worker -l warning
 
   web:
-     image: geotrekce/admin:2.19.1
+     image: geotrekce/admin:2.20.1
      ports:
        - "9101:8000"
      env_file:
@@ -47,7 +47,7 @@ services:
      command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000
 
   api:
-     image: geotrekce/admin:2.19.1
+     image: geotrekce/admin:2.20.1
      ports:
        - "9102:8000"
      env_file:
