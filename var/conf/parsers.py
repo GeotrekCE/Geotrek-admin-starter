@@ -1211,7 +1211,7 @@ class TourinsoftFMA28(TourinsoftParser61):
     }
 
     def parse_obj(self, row, operation):
-        if 'Randonnée' in row['TITLE']:
+        if 'Randonnée' in row['TITLE'] and row['PERIODEOUVERTURE']:
             return super(TourinsoftFMA28, self).parse_obj(row, operation)
 
     def filter_begin_date(self, src, val):
@@ -1227,9 +1227,6 @@ class TourinsoftFMA28(TourinsoftParser61):
             if values:
                 day, month, year = values[1].split('/')
                 return '{year}-{month}-{day}'.format(year=year, month=month, day=day)
-
-    def filter_category(self, src, val):
-        return TouristicContentCategory.objects.get(pk=3)
 
     def filter_type(self, src, val):
         return TouristicEventType.objects.get(pk=2)

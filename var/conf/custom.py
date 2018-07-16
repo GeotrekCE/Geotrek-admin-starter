@@ -1,4 +1,5 @@
 from geotrek.settings.base import LEAFLET_CONFIG
+
 #
 # BASIC SETTINGS
 # ..............
@@ -22,9 +23,9 @@ MODELTRANSLATION_LANGUAGES = ('en', 'fr',)
 
 ADMINS = (
     ('GEOTREK', 'support-geotrek@lists.makina-corpus.com'),
-    ('admin1', 'jonathan.allain@parc-naturel-perche.fr'),
-    ('admin2', 'fabienne.debuchy@parc-naturel-perche.fr'),
-    ('admin2', 'contact@parc-naturel-perche.fr'),
+#    ('admin1', 'jonathan.allain@parc-naturel-perche.fr'),
+#    ('admin2', 'fabienne.debuchy@parc-naturel-perche.fr'),
+#    ('admin2', 'contact@parc-naturel-perche.fr'),
 )
 # used to send error mails
 
@@ -59,7 +60,7 @@ SPLIT_TREKS_CATEGORIES_BY_PRACTICE = True
 DEFAULT_FROM_EMAIL = "noreply@geotrek-perche.makina-corpus.net"
 # address will be set for sended emails (ex: noreply@yourdomain.net)
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-EMAIL_HOST = "127.0.0.1"
+EMAIL_HOST = "172.17.0.1"
 # EMAIL_HOST_USER =
 # EMAIL_HOST_PASSWORD =
 # EMAIL_HOST_PORT =
@@ -77,5 +78,6 @@ EMAIL_HOST = "127.0.0.1"
 
 # IF YOU USE SSL
 
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

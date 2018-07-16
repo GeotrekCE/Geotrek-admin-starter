@@ -6,15 +6,15 @@ services:
   convertit:
      image: makinacorpus/convertit
      hostname: convertit
-     extra_hosts:
-       - "${DOMAIN_NAME}:37.187.132.176"
+     #extra_hosts:
+     #  - "${DOMAIN_NAME}:37.187.132.176"
 
   screamshotter:
      image: makinacorpus/screamshotter
      environment:
        - DJANGO_SETTINGS_MODULE=screamshotter.settings
-     extra_hosts:
-       - "${DOMAIN_NAME}:37.187.132.176"
+     #extra_hosts:
+     #  - "${DOMAIN_NAME}:37.187.132.176"
      depends_on:
        - convertit
 
