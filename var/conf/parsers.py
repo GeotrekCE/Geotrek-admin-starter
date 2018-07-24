@@ -1435,7 +1435,7 @@ class TourinsoftPCU61(TourinsoftParser61):
         'eid': 'SyndicObjectID',
         'name': 'SyndicObjectName',
         'description': 'DescriptionCommerciale3',
-        'description_teaser': 'DescriptionCommerciale',
+        'description_teaser': 'DescriptionCommerciale3',
         'geom': ('GmapLongitude', 'GmapLatitude'),
         'category': 'ObjectTypeName',
         'practical_info': (
@@ -1452,6 +1452,9 @@ class TourinsoftPCU61(TourinsoftParser61):
         'type1': 'Classification',
         'type2': 'Labels',
     }
+
+    def filter_description(self, src, val):
+        return ""
 
     def filter_category(self, src, val):
         return TouristicContentCategory.objects.get(pk=3)
