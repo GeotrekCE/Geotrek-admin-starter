@@ -503,100 +503,100 @@ class TourinsoftHPA28(TourinsoftHOT28):
     def filter_type1(self, src, val):
         instance, created = TouristicContentType1.objects.get_or_create(
             category_id=1,
-            label=val
+            label='Camping'
         )
 
         return [instance, ]
 
-class TourinsoftACC28(TourinsoftHOT28):
-    label = "Tourinsoft ACC 28"
-    url = "http://wcf.tourinsoft.com/Syndication/cdt28/fa756b5c-2914-48f3-9ca6-4a0440d79830/Objects"
-
-    m2m_fields = {
-        'type1': 'ObjectTypeName',
-        'type2': 'Labels',
-    }
-
-    def filter_contact(self, src, val):
-        infos = ""
-        com, adresse = val
-
-        if adresse:
-            address_splitted = adresse.split('|')
-            if address_splitted:
-                infos += "<strong>Adresse :</strong><br/>"
-                infos += "%s<br/>" % address_splitted[0]
-                infos += "%s - %s<br/>" % (address_splitted[3], address_splitted[4])
-                infos += "<br/>"
-        if com:
-            response_dict = {}
-            values = com.split('#')
-
-            for value in values:
-                key, data = value.split('|')
-                response_dict.update({
-                    key: data
-                })
-
-            tel = response_dict.get('Téléphone filaire', '')
-
-            if tel:
-                infos += "<strong>Téléphone :</strong><br/>"
-                infos += "%s<br/>" % tel
-                infos += "<br/>"
-
-            fax = response_dict.get('Télécopieur /fax', '')
-
-            if fax:
-                infos += "<strong>Fax :</strong><br/>"
-                infos += "%s<br/>" % fax
-                infos += "<br/>"
-
-            portable = response_dict.get('Téléphone cellulaire', '')
-
-            if portable:
-                infos += "<strong>Portable :</strong><br/>"
-                infos += "%s<br/>" % portable
-                infos += "<br/>"
-
-        return infos
-
-    def filter_email(self, src, val):
-        if val:
-            response_dict = {}
-            values = val.split('#')
-
-            for value in values:
-                key, data = value.split('|')
-                response_dict.update({
-                    key: data
-                })
-
-            return response_dict.get('Mél', '')
-        return ''
-
-    def filter_website(self, src, val):
-        if val:
-            response_dict = {}
-            values = val.split('#')
-
-            for value in values:
-                key, data = value.split('|')
-                response_dict.update({
-                    key: data
-                })
-
-            return response_dict.get('Site web (URL)', '')
-
-        return ''
-
-    def filter_type1(self, src, val):
-        instance, created = TouristicContentType1.objects.get_or_create(
-            category_id=1,
-            label=val
-        )
-
-        return [instance, ]
+# class TourinsoftACC28(TourinsoftHOT28):
+#     label = "Tourinsoft ACC 28"
+#     url = "http://wcf.tourinsoft.com/Syndication/cdt28/fa756b5c-2914-48f3-9ca6-4a0440d79830/Objects"
+#
+#     m2m_fields = {
+#         'type1': 'ObjectTypeName',
+#         'type2': 'Labels',
+#     }
+#
+#     def filter_contact(self, src, val):
+#         infos = ""
+#         com, adresse = val
+#
+#         if adresse:
+#             address_splitted = adresse.split('|')
+#             if address_splitted:
+#                 infos += "<strong>Adresse :</strong><br/>"
+#                 infos += "%s<br/>" % address_splitted[0]
+#                 infos += "%s - %s<br/>" % (address_splitted[3], address_splitted[4])
+#                 infos += "<br/>"
+#         if com:
+#             response_dict = {}
+#             values = com.split('#')
+#
+#             for value in values:
+#                 key, data = value.split('|')
+#                 response_dict.update({
+#                     key: data
+#                 })
+#
+#             tel = response_dict.get('Téléphone filaire', '')
+#
+#             if tel:
+#                 infos += "<strong>Téléphone :</strong><br/>"
+#                 infos += "%s<br/>" % tel
+#                 infos += "<br/>"
+#
+#             fax = response_dict.get('Télécopieur /fax', '')
+#
+#             if fax:
+#                 infos += "<strong>Fax :</strong><br/>"
+#                 infos += "%s<br/>" % fax
+#                 infos += "<br/>"
+#
+#             portable = response_dict.get('Téléphone cellulaire', '')
+#
+#             if portable:
+#                 infos += "<strong>Portable :</strong><br/>"
+#                 infos += "%s<br/>" % portable
+#                 infos += "<br/>"
+#
+#         return infos
+#
+#     def filter_email(self, src, val):
+#         if val:
+#             response_dict = {}
+#             values = val.split('#')
+#
+#             for value in values:
+#                 key, data = value.split('|')
+#                 response_dict.update({
+#                     key: data
+#                 })
+#
+#             return response_dict.get('Mél', '')
+#         return ''
+#
+#     def filter_website(self, src, val):
+#         if val:
+#             response_dict = {}
+#             values = val.split('#')
+#
+#             for value in values:
+#                 key, data = value.split('|')
+#                 response_dict.update({
+#                     key: data
+#                 })
+#
+#             return response_dict.get('Site web (URL)', '')
+#
+#         return ''
+#
+#     def filter_type1(self, src, val):
+#         instance, created = TouristicContentType1.objects.get_or_create(
+#             category_id=1,
+#             label=val
+#         )
+#
+#         return [instance, ]
 
 
 class TourinsoftHPA61(TourinsoftParser61):
@@ -685,7 +685,7 @@ class TourinsoftHPA61(TourinsoftParser61):
     def filter_type1(self, src, val):
         instance, created = TouristicContentType1.objects.get_or_create(
             category_id=1,
-            label=val
+            label='Camping'
         )
 
         return [instance, ]

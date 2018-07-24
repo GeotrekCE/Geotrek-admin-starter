@@ -1,0 +1,5 @@
+msgid "Touristic events"
+msgstr "Agenda trek"
+
+msgid "Touristic event"
+msgstr "Agenda trek"

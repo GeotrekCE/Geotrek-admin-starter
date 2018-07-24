@@ -6,7 +6,7 @@ from geotrek.settings.base import LEAFLET_CONFIG
 # SRID = 2154  # LAMBERT EXTENDED FOR FRANCE, used for geometric columns.
 # Must be a projection in meters Fixed at install, don't change it after
 #
-DEFAULT_STRUCTURE_NAME = 'PNRP' # -> Name for your default structure. Can be changed in geotrek admin interface
+DEFAULT_STRUCTURE_NAME = 'PNRP'  # -> Name for your default structure. Can be changed in geotrek admin interface
 #
 SPATIAL_EXTENT = (500413.05, 6773442.40, 577989.04, 6851411.72)
 
@@ -23,9 +23,9 @@ MODELTRANSLATION_LANGUAGES = ('en', 'fr',)
 
 ADMINS = (
     ('GEOTREK', 'support-geotrek@lists.makina-corpus.com'),
-#    ('admin1', 'jonathan.allain@parc-naturel-perche.fr'),
-#    ('admin2', 'fabienne.debuchy@parc-naturel-perche.fr'),
-#    ('admin2', 'contact@parc-naturel-perche.fr'),
+    #    ('admin1', 'jonathan.allain@parc-naturel-perche.fr'),
+    #    ('admin2', 'fabienne.debuchy@parc-naturel-perche.fr'),
+    #    ('admin2', 'contact@parc-naturel-perche.fr'),
 )
 # used to send error mails
 
@@ -35,20 +35,18 @@ MANAGERS = (
 
 LEAFLET_CONFIG['TILES'] = [
     ('Scan',
-'//gpp3-wxs.ign.fr/b746xijzy2ihmjn3whljl0l9/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
-'&copy; IGN - GeoPortail'),
+     '//gpp3-wxs.ign.fr/b746xijzy2ihmjn3whljl0l9/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+     '&copy; IGN - GeoPortail'),
     ('Scan Express',
-'//gpp3-wxs.ign.fr/b746xijzy2ihmjn3whljl0l9/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
-'&copy; IGN - GeoPortail'),
+     '//gpp3-wxs.ign.fr/b746xijzy2ihmjn3whljl0l9/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+     '&copy; IGN - GeoPortail'),
     ('Ortho',
-'//gpp3-wxs.ign.fr/b746xijzy2ihmjn3whljl0l9/geoportail/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
-'&copy; IGN - GeoPortail'),
+     '//gpp3-wxs.ign.fr/b746xijzy2ihmjn3whljl0l9/geoportail/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+     '&copy; IGN - GeoPortail'),
     ('OSM', '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', '(c) OpenStreetMap Contributors'),
 ]
 
 SPLIT_TREKS_CATEGORIES_BY_PRACTICE = True
-
-
 
 # TIME_ZONE="Europe/Paris"
 # set your timezone for date format. For France, uncomment line beside
@@ -80,4 +78,4 @@ EMAIL_HOST = "172.17.0.1"
 
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
