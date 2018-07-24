@@ -1258,6 +1258,129 @@ class TourinsoftFMA28(TourinsoftParser61):
 
             return response_dict.get('Site web (URL)', '')
 
+    def filter_contact(self, src, val):
+        infos = ""
+        com, adresse = val
+
+        if adresse:
+            address_splitted = adresse.split('|')
+            if address_splitted:
+                infos += "<strong>Adresse :</strong><br/>"
+                infos += "%s<br/>" % address_splitted[0]
+                infos += "%s - %s<br/>" % (address_splitted[4], address_splitted[5])
+                infos += "<br/>"
+        if com:
+            response_dict = {}
+            values = com.split('#')
+
+            for value in values:
+                key, data = value.split('|')
+                response_dict.update({
+                    key: data
+                })
+
+            tel = response_dict.get('Téléphone filaire', '')
+
+            if tel:
+                infos += "<strong>Téléphone :</strong><br/>"
+                infos += "%s<br/>" % tel
+                infos += "<br/>"
+
+            fax = response_dict.get('Télécopieur /fax', '')
+
+            if fax:
+                infos += "<strong>Fax :</strong><br/>"
+                infos += "%s<br/>" % fax
+                infos += "<br/>"
+
+            portable = response_dict.get('Portable', '')
+
+            if portable:
+                infos += "<strong>Portable :</strong><br/>"
+                infos += "%s<br/>" % portable
+                infos += "<br/>"
+
+        return infos
+
+
+class TourinsoftPCU28(TourinsoftParser61):
+    label = "TourinSoft PCU 28"
+    url = "http://wcf.tourinsoft.com/Syndication/cdt28/69478978-32e5-4f77-9940-266c4430edc0/Objects"
+
+    fields = {
+        'eid': 'SyndicObjectID',
+        'name': 'SyndicObjectName',
+        'description': 'DescriptionCommerciale3',
+        'description_teaser': 'DescriptionCommerciale',
+        'geom': ('GmapLongitude', 'GmapLatitude'),
+        'category': 'ObjectTypeName',
+        'practical_info': (
+            'LanguesParlees',
+            'PeriodeOuverture',
+            'PrestationsEquipements',
+        ),
+        'contact': ('MoyenDeCom', 'AdresseComplete'),
+        'email': 'MoyenDeCom',
+        'website': 'MoyenDeCom',
+    }
+
+    m2m_fields = {
+        'type1': 'Classification',
+        'type2': 'Labels',
+    }
+
+    def filter_category(self, src, val):
+        return TouristicContentCategory.objects.get(pk=3)
+
+    def filter_type1(self, src, val):
+        instance, created = TouristicContentType1.objects.get_or_create(
+            category_id=3,
+            label="Équipements de loisirs"
+        )
+
+        return [instance, ]
+
+    def filter_type2(self, src, value):
+        instances = []
+        if value:
+            values = value.split('#')
+            if values:
+                for value in values:
+                    if value:
+                        instance, created = TouristicContentType2.objects.get_or_create(
+                            category_id=3,
+                            label=value
+                        )
+                        instances.append(instance)
+        return instances
+
+    def filter_email(self, src, val):
+        if val:
+            response_dict = {}
+            values = val.split('#')
+
+            for value in values:
+                key, data = value.split('|')
+                response_dict.update({
+                    key: data
+                })
+
+            return response_dict.get('Mél', '')
+        return ''
+
+    def filter_website(self, src, val):
+        if val:
+            response_dict = {}
+            values = val.split('#')
+
+            for value in values:
+                key, data = value.split('|')
+                response_dict.update({
+                    key: data
+                })
+
+            return response_dict.get('Site web (URL)', '')
+
 
     def filter_contact(self, src, val):
         infos = ""
