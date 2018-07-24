@@ -1335,7 +1335,7 @@ class TourinsoftPCU28(TourinsoftParser61):
     def filter_type1(self, src, val):
         instance, created = TouristicContentType1.objects.get_or_create(
             category_id=3,
-            label="Équipements de loisirs"
+            label="Patrimoine culturel"
         )
 
         return [instance, ]
