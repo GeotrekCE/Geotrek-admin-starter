@@ -1552,3 +1552,119 @@ class TourinsoftPCU61(TourinsoftParser61):
                 infos += "<br/>"
 
         return infos
+
+
+class TourinsoftFMA61(TourinsoftParser61):
+    label = "TourinSoft FMA 61"
+    url = "http://wcf.tourinsoft.com/Syndication/cdt61/e965d74b-a014-41a8-9d0b-eb906154ae99/Objects"
+    model = TouristicEvent
+    fields = {
+        'eid': 'SyndicObjectID',
+        'name': 'SyndicObjectName',
+        'description': 'DescriptionCommerciale2',
+        'description_teaser': 'DescriptionCommerciale',
+        'geom': ('GmapLongitude', 'GmapLatitude'),
+        'type': 'ObjectTypeName',
+        'practical_info': (
+            'LanguesParlees',
+            'PeriodeOuverture',
+            'PrestationsEquipements',
+        ),
+        'contact': ('MoyenDeCom', 'AdresseComplete'),
+        'email': 'MoyenDeCom',
+        'website': 'MoyenDeCom',
+        'begin_date': 'PeriodeOuverture',
+        'end_date': 'PeriodeOuverture'
+    }
+
+    def parse_obj(self, row, operation):
+        if 'Randonnée' in row['TITLE'] and row['PERIODEOUVERTURE']:
+            return super(TourinsoftFMA28, self).parse_obj(row, operation)
+
+    def filter_begin_date(self, src, val):
+        if val:
+            values = val.split('|')
+            if values:
+                day, month, year = values[0].split('/')
+                return '{year}-{month}-{day}'.format(year=year, month=month, day=day)
+
+    def filter_end_date(self, src, val):
+        if val:
+            values = val.split('|')
+            if values:
+                day, month, year = values[1].split('/')
+                return '{year}-{month}-{day}'.format(year=year, month=month, day=day)
+
+    def filter_type(self, src, val):
+        return TouristicEventType.objects.get(pk=2)
+
+    def filter_email(self, src, val):
+        if val:
+            response_dict = {}
+            values = val.split('#')
+
+            for value in values:
+                key, data = value.split('|')
+                response_dict.update({
+                    key: data
+                })
+
+            return response_dict.get('Mél', '')
+        return ''
+
+    def filter_website(self, src, val):
+        if val:
+            response_dict = {}
+            values = val.split('#')
+
+            for value in values:
+                key, data = value.split('|')
+                response_dict.update({
+                    key: data
+                })
+
+            return response_dict.get('Site web (URL)', '')
+
+    def filter_contact(self, src, val):
+        infos = ""
+        com, adresse = val
+
+        if adresse:
+            address_splitted = adresse.split('|')
+            if address_splitted:
+                infos += "<strong>Adresse :</strong><br/>"
+                infos += "%s<br/>" % address_splitted[0]
+                infos += "%s - %s<br/>" % (address_splitted[4], address_splitted[5])
+                infos += "<br/>"
+        if com:
+            response_dict = {}
+            values = com.split('#')
+
+            for value in values:
+                key, data = value.split('|')
+                response_dict.update({
+                    key: data
+                })
+
+            tel = response_dict.get('Téléphone filaire', '')
+
+            if tel:
+                infos += "<strong>Téléphone :</strong><br/>"
+                infos += "%s<br/>" % tel
+                infos += "<br/>"
+
+            fax = response_dict.get('Télécopieur /fax', '')
+
+            if fax:
+                infos += "<strong>Fax :</strong><br/>"
+                infos += "%s<br/>" % fax
+                infos += "<br/>"
+
+            portable = response_dict.get('Portable', '')
+
+            if portable:
+                infos += "<strong>Portable :</strong><br/>"
+                infos += "%s<br/>" % portable
+                infos += "<br/>"
+
+        return infos
