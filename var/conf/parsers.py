@@ -1674,6 +1674,79 @@ class TourinsoftHLO61(TourinsoftHOT28):
     label = "Tourinsoft HLO 61"
     url = "http://wcf.tourinsoft.com/Syndication/cdt61/b8469df6-051b-447f-8fbd-6db8ee2caca1/Objects"
 
+    def filter_email(self, src, val):
+        if val:
+            response_dict = {}
+            values = val.split('#')
+
+            for value in values:
+                key, data = value.split('|')
+                response_dict.update({
+                    key: data
+                })
+
+            return response_dict.get('Mél', '')
+        return ''
+
+    def filter_website(self, src, val):
+        if val:
+            response_dict = {}
+            values = val.split('#')
+
+            for value in values:
+                key, data = value.split('|')
+                response_dict.update({
+                    key: data
+                })
+
+            return response_dict.get('Site web (URL)', '')
+
+
+    def filter_contact(self, src, val):
+        infos = ""
+        com, adresse = val
+
+        if adresse:
+            address_splitted = adresse.split('|')
+            if address_splitted:
+                infos += "<strong>Adresse :</strong><br/>"
+                infos += "%s<br/>" % address_splitted[0]
+                infos += "%s - %s<br/>" % (address_splitted[4], address_splitted[5])
+                infos += "<br/>"
+        if com:
+            response_dict = {}
+            values = com.split('#')
+
+            for value in values:
+                key, data = value.split('|')
+                response_dict.update({
+                    key: data
+                })
+
+            tel = response_dict.get('Téléphone filaire', '')
+
+            if tel:
+                infos += "<strong>Téléphone :</strong><br/>"
+                infos += "%s<br/>" % tel
+                infos += "<br/>"
+
+            fax = response_dict.get('Télécopieur /fax', '')
+
+            if fax:
+                infos += "<strong>Fax :</strong><br/>"
+                infos += "%s<br/>" % fax
+                infos += "<br/>"
+
+            portable = response_dict.get('Portable', '')
+
+            if portable:
+                infos += "<strong>Portable :</strong><br/>"
+                infos += "%s<br/>" % portable
+                infos += "<br/>"
+
+        return infos
+
+
 
 class TourinsoftLOI61(TourinsoftParser61):
     label = "TourinSoft LOI 61"
