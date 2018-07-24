@@ -1579,7 +1579,7 @@ class TourinsoftFMA61(TourinsoftParser61):
 
     def parse_obj(self, row, operation):
         if 'Randonnée' in row['TITLE'] and row['PERIODEOUVERTURE']:
-            return super(TourinsoftFMA28, self).parse_obj(row, operation)
+            return super(TourinsoftFMA61, self).parse_obj(row, operation)
 
     def filter_begin_date(self, src, val):
         if val:
