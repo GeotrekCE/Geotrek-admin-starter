@@ -81,5 +81,5 @@ CSRF_COOKIE_SECURE = False
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 SYNC_RANDO_OPTIONS = {
-    'skip-tiles': True,
+    'skip_tiles': True,
 }
