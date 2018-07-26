@@ -58,3 +58,4 @@ services:
        - web
        - celery
      command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout ${GUNICORN_TIMEOUT}
+
