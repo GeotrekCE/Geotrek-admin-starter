@@ -78,3 +78,8 @@ LEAFLET_CONFIG['TILES'] = [
 
 SPLIT_TREKS_CATEGORIES_BY_PRACTICE = True
 
+SYNC_RANDO_ROOT = '/app/src/var/data'
+SYNC_RANDO_OPTIONS = {
+    'url': 'http://geotrek-ardeche-hermitage.fr',
+    'rando_url': 'http://rando-ardeche-hermitage.fr',
+}
