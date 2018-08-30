@@ -34,6 +34,7 @@ $ cp .env.dist .env
 
 ## Fill .env with data. If you share postgresql server, you must use docker interface address
 
+```ini
 GEOTREK_VERSION=2.19.1
 POSTGRES_HOST=172.16.0.1
 POSTGRES_USER=your_database_user
@@ -41,7 +42,7 @@ POSTGRES_DB=your_database
 POSTGRES_PASSWORD=your_user_password
 DOMAIN_NAME=your.final.geotrek.domain
 SECRET_KEY=secret-and-unique-secret-and-unique
-
+```
 ## init volume config
 
 ```bash
