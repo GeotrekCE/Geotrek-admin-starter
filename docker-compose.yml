@@ -32,7 +32,7 @@ services:
     volumes:
       - ./var:/app/src/var
     working_dir: /app/src
-    command: celery -A geotrek worker -l warning
+    command: celery -A geotrek worker -c 1 -l warning
 
   web:
      image: geotrekce/admin:2.20.1
@@ -44,7 +44,7 @@ services:
       - ./var:/app/src/var
      depends_on:
        - celery
-     command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout 300
+     command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout ${GUNICORN_TIMEOUT}
 
   api:
      image: geotrekce/admin:2.20.1
@@ -57,5 +57,5 @@ services:
      depends_on:
        - web
        - celery
-     command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout 300
+     command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout ${GUNICORN_TIMEOUT}
 
