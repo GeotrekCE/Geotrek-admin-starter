@@ -1,5 +1,5 @@
 [Unit]
-Description=ArcheAgglo Geotrek-admin
+Description=Geotrek-admin
 Requires=docker.service
 After=docker.service
 

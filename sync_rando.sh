@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-/usr/local/bin/docker-compose run web ./manage.py sync_rando -v2 --url http://admin.geotrek.fr --rando-url http://rando.geotrek.fr /app/src/var/data
+cd /home/perche/perche-admin
+
+/usr/local/bin/docker-compose run web ./manage.py sync_rando -v2 --url http://geotrek-perche.makina-corpus.net --rando-url http:rando-perche.fr /app/src/var/data
