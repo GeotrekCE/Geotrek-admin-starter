@@ -3,21 +3,6 @@ services:
   redis:
     image: redis:4.0-alpine
 
-#  convertit:
-#     image: makinacorpus/convertit
-#     hostname: convertit
-#     extra_hosts:
-#       - "${DOMAIN_NAME}:37.187.132.176"
-
-#  screamshotter:
-#     image: makinacorpus/screamshotter
-#     environment:
-#       - DJANGO_SETTINGS_MODULE=screamshotter.settings
-#     extra_hosts:
-#       - "${DOMAIN_NAME}:37.187.132.176"
-#     depends_on:
-#       - convertit
-
   memcached:
     image: memcached:1.5-alpine
 
