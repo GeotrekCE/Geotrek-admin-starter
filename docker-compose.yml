@@ -3,20 +3,20 @@ services:
   redis:
     image: redis:4.0-alpine
 
-  convertit:
-     image: makinacorpus/convertit
-     hostname: convertit
-     extra_hosts:
-       - "${DOMAIN_NAME}:37.187.132.176"
+#  convertit:
+#     image: makinacorpus/convertit
+#     hostname: convertit
+#     extra_hosts:
+#       - "${DOMAIN_NAME}:37.187.132.176"
 
-  screamshotter:
-     image: makinacorpus/screamshotter
-     environment:
-       - DJANGO_SETTINGS_MODULE=screamshotter.settings
-     extra_hosts:
-       - "${DOMAIN_NAME}:37.187.132.176"
-     depends_on:
-       - convertit
+#  screamshotter:
+#     image: makinacorpus/screamshotter
+#     environment:
+#       - DJANGO_SETTINGS_MODULE=screamshotter.settings
+#     extra_hosts:
+#       - "${DOMAIN_NAME}:37.187.132.176"
+#     depends_on:
+#       - convertit
 
   memcached:
     image: memcached:1.5-alpine
@@ -33,6 +33,10 @@ services:
       - ./var:/app/src/var
     working_dir: /app/src
     command: celery -A geotrek worker -c 1 -l warning
+    networks:
+      - default
+      - convertit_network
+      - screamshotter_network
 
   web:
      image: geotrekce/admin:2.21.0
@@ -45,6 +49,10 @@ services:
      depends_on:
        - celery
      command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout 300
+     networks:
+       - default
+       - convertit_network
+       - screamshotter_network
 
   api:
      image: geotrekce/admin:2.21.0
@@ -58,4 +66,13 @@ services:
        - web
        - celery
      command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout 300
+     networks:
+       - default
+       - convertit_network
+       - screamshotter_network
 
+networks:
+  convertit_network:
+    external: true
+  screamshotter_network:
+    external: true
