@@ -7,15 +7,15 @@ from geotrek.settings.base import LEAFLET_CONFIG
 SRID = 2154  # LAMBERT EXTENDED FOR FRANCE, used for geometric columns.
 # Must be a projection in meters Fixed at install, don't change it after
 #
-DEFAULT_STRUCTURE_NAME = 'ARCHE-AGGLO' # -> Name for your default structure. Can be changed in geotrek admin interface
+DEFAULT_STRUCTURE_NAME = 'ACIR' # -> Name for your default structure. Can be changed in geotrek admin interface
 
-SPATIAL_EXTENT = (805912, 6426630, 882869, 6470947)
+SPATIAL_EXTENT = (446412.4257, 6151098.7987, 695956.5365, 1332854.9825)
 # spatial bbox in your own projection (example here with 2154)
 # this spatial_extent will limit map exploration, and will cut your raster imports
 #
 LANGUAGE_CODE = 'fr' # for web interface. default to fr (French)
 
-MODELTRANSLATION_LANGUAGES = ('fr', 'en', 'de',)
+MODELTRANSLATION_LANGUAGES = ('fr', 'en', 'es', 'cat', 'oc')
 # Change with your own wanted translations
 # ex: MODELTRANSLATION_LANGUAGES = ('en', 'fr', 'de', 'ne')
 
@@ -25,8 +25,6 @@ ADMINS = (
 # used to send error mails
 
 MANAGERS = (
-    ('manager1', 'damien@tourisme-saintfelicien.fr'),
-    ('manager2', 'd.mathieu@ah-tourisme.com'), # change with tuple ('your name', 'your@address.mail')
 )
 
 # or MANAGERS = ADMIN
@@ -63,23 +61,6 @@ MANAGERS = (
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
 
-LEAFLET_CONFIG['TILES'] = [
-    ('Scan Express', 
-'http://gpp3-wxs.ign.fr/ep7lci7sy61ti943uzugq6wp/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', 
-'&copy; IGN - GeoPortail'),
-    ('Scan', 
-'http://gpp3-wxs.ign.fr/ep7lci7sy61ti943uzugq6wp/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', 
-'&copy; IGN - GeoPortail'),
-    ('Ortho', 
-'http://gpp3-wxs.ign.fr/ep7lci7sy61ti943uzugq6wp/geoportail/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=image/jpeg&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', 
-'&copy; IGN - GeoPortail'),
-    ('OSM', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', '(c) OpenStreetMap Contributors'),
-]
-
 SPLIT_TREKS_CATEGORIES_BY_PRACTICE = True
 
 SYNC_RANDO_ROOT = '/app/src/var/data'
-SYNC_RANDO_OPTIONS = {
-    #'url': 'http://geotrek-ardeche-hermitage.fr',
-    'rando_url': 'http://rando-ardeche-hermitage.fr',
-}
