@@ -9,7 +9,7 @@ SRID = 2154  # LAMBERT EXTENDED FOR FRANCE, used for geometric columns.
 #
 DEFAULT_STRUCTURE_NAME = 'ACIR' # -> Name for your default structure. Can be changed in geotrek admin interface
 
-SPATIAL_EXTENT = (446412.4257, 6151098.7987, 695956.5365, 1332854.9825)
+SPATIAL_EXTENT = (446412.4257, 6151098.7987, 695956.5365, 6343234.0658)
 # spatial bbox in your own projection (example here with 2154)
 # this spatial_extent will limit map exploration, and will cut your raster imports
 #
