@@ -12,7 +12,6 @@ services:
       - .env
     depends_on:
       - redis
-      - screamshotter
       - memcached
     volumes:
       - ./var:/app/src/var
@@ -49,7 +48,6 @@ services:
       - ./var:/app/src/var
      depends_on:
        - web
-       - celery
      command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout 300
      networks:
        - default
