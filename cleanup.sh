@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 cd $(pwd)
-docker-compose run web ./manage.py clearsessions
-docker-compose run web ./manage.py thumbnail_cleanup
+docker exec $(docker ps -q -f name=$(pwd)_web) ./manage.py clearsessions
+docker exec $(docker ps -q -f name=$(pwd)_web) ./manage.py thumbnail_cleanup
