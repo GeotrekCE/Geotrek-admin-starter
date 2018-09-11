@@ -61,6 +61,7 @@ Fix at least your :
 - SPATIAL_EXTENT
 - DEFAULT_STRUCTURE_NAME
 - MODELTRANSLATION_LANGUAGES
+- SYNC_RANDO_OPTIONS
 
 ## Launch docker stack
 ```bash
@@ -83,3 +84,24 @@ docker stack rm your_instance_name
 docker stack deploy -c docker-stack.yml your_instance_name
 docker exec $(docker ps -q -f name="your_instance_name_web") update.sh
 ```
+
+## CRON jobs
+
+### Cleanup
+
+edit host's cron to run cleanup.sh
+
+### Backup
+
+edit host's cron to run backup.sh
+Backup are stored in /var/backups/geotrek/your_instance_name
+
+### Sync rando
+
+edit host's cron to run sync_rando.sh
+
+Don't forget to set SYNC_RANDO_OPTIONS in custom.py to set url, portal_url, skip_tiles and other required sync settings
+
+### Parsers
+
+edit host's cron to run 
