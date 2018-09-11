@@ -1,19 +1,25 @@
-# INSTALL GEOTREK
+# INSTALL GEOTREK INSTANCE
 
 this file describe how to install geotrek instance on makina geotrek docker server
 
-## Create a specific user on server and store password on vaultier
+# Create a specific branch on gitlab geotrek-admin-deploy-docker from master
+
+## Connect to docker server (passwords in vaultier)
 
 ```bash
 ssh root@ip_of_your_server
-useradd -ms /bin/bash <name_of_your_instance>
-passwd <name_of_your_instance>
-adduser <name_of_your_instance> sudo
 ```
 
-## Create user and databse on postgresql server
+## Clone and rename folder in /srv/geotrek
 ```bash
-$ sudo su
+cd /srv/geotrek
+git clone https://gitlab.makina-corpus.net/geotrek/geotrek-admin-deploy-docker.git your_instance_name
+cd your_instance_name
+git checkout -b your_instance_name origin/your_instance_name
+```
+
+## Create user and database on postgresql server
+```bash
 $ su - postgres
 $ psql
 ```
@@ -21,8 +27,9 @@ $ psql
 ```sql
 CREATE USER your_database_user WITH ENCRYPTED PASSWORD 'your_user_password';
 CREATE DATABASE your_database WITH OWNER your_database_user;
-\c your_database;
+\c your_database
 CREATE EXTENSION POSTGIS;
+\q
 ```
 
 ## Create environment file
@@ -34,19 +41,14 @@ $ cp .env.dist .env
 
 ## Fill .env with data. If you share postgresql server, you must use docker interface address
 
-GEOTREK_VERSION=2.19.1
-POSTGRES_HOST=172.16.0.1
+POSTGRES_HOST=172.17.0.1
 POSTGRES_USER=your_database_user
 POSTGRES_DB=your_database
 POSTGRES_PASSWORD=your_user_password
 DOMAIN_NAME=your.final.geotrek.domain
 SECRET_KEY=secret-and-unique-secret-and-unique
-
-## init volume config
-
-```bash
-$ docker-compose run web bash exit
-```
+CONVERSION_HOST=convertit_web
+CAPTURE_HOST=screamshotter_web
 
 ## Edit custom.py before initial.sh
 
@@ -57,24 +59,27 @@ $ sudo nano ./var/conf/custom.py
 Fix at least your :
 - SRID
 - SPATIAL_EXTENT
+- DEFAULT_STRUCTURE_NAME
 - MODELTRANSLATION_LANGUAGES
 
+## Launch docker stack
+```bash
+docker stack deploy -c docker-stack.yml your_instance_name
+```
 
 ## Test initialize database and basic data
 
 ```bash
-$ docker-compose run web initial.sh
+docker exec $(docker ps -q -f name="your_instance_name_web") initial.sh
 ```
 
-## Install service
-
-- edit your docker-compose.yml to match with available ports on server
-- edit / rename geotrek.nginx.conf with your_instance_name.conf. Fix ports and install in /etc/nginx/sites-availables/. Link to /etc/nginx/sites-enable/
-- edit / rename geotrek.systemd.service with your_instance_name.service. Fiw WorkingDirectory to match with your current folder absolute path. Install in /etc/systemd/system/. Activate it with systemctl enable your_instance_name.
-
-## Run
+## Delete instance
 ```bash
-systemctl start your_instance_name
-systemctl stop your_instance_name
+docker stack rm your_instance_name
 ```
 
+## Redeploy (after update)
+```bash
+docker stack deploy -c docker-stack.yml your_instance_name
+docker exec $(docker ps -q -f name="your_instance_name_web") update.sh
+```
