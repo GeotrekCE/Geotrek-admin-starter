@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
+DIR="$(dirname "$0")"
 
-cd /home/perche/perche-admin
-
-/usr/local/bin/docker-compose run web ./manage.py sync_rando -v2 --url http://geotrek-perche.makina-corpus.net --rando-url http:rando-perche.fr /app/src/var/data
+# take care to configure SYNC_RANDO_OPTIONS in custom.py
+docker exec $(docker ps -q -f name=$(basename $DIR)_web) ./manage.py sync_rando -v2 /app/src/var/data

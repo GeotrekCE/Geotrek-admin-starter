@@ -1,0 +1,57 @@
+version: "3"
+services:
+  redis:
+    image: redis:4.0-alpine
+
+  memcached:
+    image: memcached:1.5-alpine
+
+  celery:
+    image: geotrekce/admin:2.21.0
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - memcached
+    volumes:
+      - ./var:/app/src/var
+    working_dir: /app/src
+    command: celery -A geotrek worker -c 1 -l warning
+    networks:
+      - default
+      - convertit_network
+      - screamshotter_network
+
+  web:
+     image: geotrekce/admin:2.21.0
+     env_file:
+       - .env
+     volumes:
+      - ./var:/app/src/var
+     depends_on:
+       - celery
+     command: gunicorn geotrek.wsgi:application
+     networks:
+       - default
+       - convertit_network
+       - screamshotter_network
+
+  api:
+     image: geotrekce/admin:2.21.0
+     env_file:
+       - .env
+     volumes:
+      - ./var:/app/src/var
+     depends_on:
+       - web
+     command: gunicorn geotrek.wsgi:application
+     networks:
+       - default
+       - convertit_network
+       - screamshotter_network
+
+networks:
+  convertit_network:
+    external: true
+  screamshotter_network:
+    external: true
