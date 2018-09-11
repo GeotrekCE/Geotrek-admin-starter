@@ -41,6 +41,7 @@ $ cp .env.dist .env
 
 ## Fill .env with data. If you share postgresql server, you must use docker interface address
 
+```
 POSTGRES_HOST=172.17.0.1
 POSTGRES_USER=your_database_user
 POSTGRES_DB=your_database
@@ -49,6 +50,7 @@ DOMAIN_NAME=your.final.geotrek.domain
 SECRET_KEY=secret-and-unique-secret-and-unique
 CONVERSION_HOST=convertit_web
 CAPTURE_HOST=screamshotter_web
+```
 
 ## Edit custom.py before initial.sh
 
