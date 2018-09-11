@@ -7,7 +7,7 @@ this file describe how to install geotrek instance on makina geotrek docker serv
 ## Connect to docker server (passwords in vaultier)
 
 ```bash
-ssh root@ip_of_your_server
+ssh root@ip_of_server
 ```
 
 ## Clone and rename folder in /srv/geotrek

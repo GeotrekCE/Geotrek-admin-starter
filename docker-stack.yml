@@ -32,7 +32,7 @@ services:
       - ./var:/app/src/var
      depends_on:
        - celery
-     command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout 300
+     command: gunicorn geotrek.wsgi:application
      networks:
        - default
        - convertit_network
@@ -48,7 +48,7 @@ services:
       - ./var:/app/src/var
      depends_on:
        - web
-     command: gunicorn geotrek.wsgi:application -w 5 --bind 0.0.0.0:8000 --timeout 300
+     command: gunicorn geotrek.wsgi:application
      networks:
        - default
        - convertit_network
