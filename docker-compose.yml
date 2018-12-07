@@ -1,0 +1,56 @@
+version: "3"
+services:
+  redis:
+    image: redis:5.0-alpine
+
+  convertit:
+     image: makinacorpus/convertit
+     hostname: convertit
+
+  screamshotter:
+     image: makinacorpus/screamshotter
+     environment:
+       - DJANGO_SETTINGS_MODULE=screamshotter.settings
+     depends_on:
+       - convertit
+
+  memcached:
+    image: memcached:1.5-alpine
+
+  celery:
+    image: geotrekce/admin:${GEOTREK_VERSION}
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - screamshotter
+      - memcached
+    volumes:
+      - ./var:/app/src/var
+    working_dir: /app/src
+    command: celery -A geotrek worker -c 1 -l warning
+
+  web:
+     image: geotrekce/admin:${GEOTREK_VERSION}
+     ports:
+       - "127.0.0.1:<port_not_use_1>:8000"
+     env_file:
+       - .env
+     volumes:
+      - ./var:/app/src/var
+     depends_on:
+       - celery
+     command: gunicorn geotrek.wsgi:application
+
+  api:
+     image: geotrekce/admin:${GEOTREK_VERSION}
+     ports:
+       - "127.0.0.1:<port_not_use_2>:8000"
+     env_file:
+       - .env
+     volumes:
+      - ./var:/app/src/var
+     depends_on:
+       - web
+       - celery
+     command: gunicorn geotrek.wsgi:application
