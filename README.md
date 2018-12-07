@@ -82,11 +82,11 @@ docker stack deploy -c docker-stack.yml your_instance_name
 ```
 
 ## Test initialize database and basic data
-_Use this command only if you use docker-stack :_
+_With docker stack :_
 ```bash
 docker exec $(docker ps -q -f name="your_instance_name_web") initial.sh
 ```
-_Use this command only if you use docker-compose :_
+_With docker-compose :_
 ```bash
 docker-compose run web initial.sh
 ```
