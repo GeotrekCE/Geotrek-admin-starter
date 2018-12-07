@@ -7,7 +7,7 @@ services:
     image: memcached:1.5-alpine
 
   celery:
-    image: geotrekce/admin:2.21.0
+    image: geotrekce/admin:2.22.1
     env_file:
       - .env
     depends_on:
@@ -23,7 +23,7 @@ services:
       - screamshotter_network
 
   web:
-     image: geotrekce/admin:2.21.0
+     image: geotrekce/admin:2.22.1
      env_file:
        - .env
      volumes:
@@ -37,7 +37,7 @@ services:
        - screamshotter_network
 
   api:
-     image: geotrekce/admin:2.21.0
+     image: geotrekce/admin:2.22.1
      env_file:
        - .env
      volumes:
