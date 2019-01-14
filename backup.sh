@@ -3,12 +3,11 @@
 DIR="$(dirname "$0")"
 cd $DIR
 
-source ./.env
-export PGPASSWORD=$(echo $POSTGRES_PASSWORD)
-final_name = geotrek_`date +\%Y-\%m-\%d_\%H:\%M`.dump
-pg_dump -Fc --no-acl --no-owner -h 127.0.0.1 -U $POSTGRES_USER $POSTGRES_DB > $final_name
-
 mkdir -p /var/backups/geotrek/$(basename $PWD)
 
-tar --exclude='*.djcache'  --exclude='.git/*'  --exclude='*.tgz' --exclude='*.log' --exclude='./var/data/*' --exclude='./var/static/*' --exclude='./var/tiles/*' -zcvf /var/backups/geotrek/$(basename $DIR)/geotrek_`date +\%Y-\%m-\%d_\%H-\%M`.tgz .
+source ./.env
+export PGPASSWORD=$(echo $POSTGRES_PASSWORD)
+pg_dump -Fc --no-acl --no-owner -h 127.0.0.1 -U $POSTGRES_USER $POSTGRES_DB > geotrek_`date +\%Y-\%m-\%d_\%H-\%M`.dump
+
+tar --exclude='*.djcache' --exclude='.git/*' --exclude='*.tar.bz2' --exclude='*.log' --exclude='./var/data/*' --exclude='./var/static/*' --exclude='./var/tiles/*' -cavf /var/backups/geotrek/$(basename $PWD)/geotrek_`date +\%Y-\%m-\%d_\%H-\%M`.tar.bz2 .
 rm ./geotrek_*.dump
