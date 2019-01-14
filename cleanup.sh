@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
-docker-compose exec web ./manage.py clearsessions
-docker-compose exec web ./manage.py thumbnail_cleanup
+DIR="$(dirname "$0")"
+cd $DIR
+
+/usr/local/bin/docker-compose exec -T web ./manage.py clearsessions
+/usr/local/bin/docker-compose exec -T web ./manage.py thumbnail_cleanup
