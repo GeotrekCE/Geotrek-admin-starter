@@ -33,7 +33,7 @@ services:
   web:
      image: geotrekce/admin:${GEOTREK_VERSION}
      ports:
-       - "127.0.0.1:<port_not_use_1>:8000"
+       - "127.0.0.1:9001:8000"
      env_file:
        - .env
      volumes:
@@ -45,7 +45,7 @@ services:
   api:
      image: geotrekce/admin:${GEOTREK_VERSION}
      ports:
-       - "127.0.0.1:<port_not_use_2>:8000"
+       - "127.0.0.1:9002:8000"
      env_file:
        - .env
      volumes:

@@ -75,50 +75,23 @@ ___________________________
 
 ## Install Service
 
-1. Edit your docker-compose.yml, change ports :
-    ```yml
-      web:
-         image: geotrekce/admin:${GEOTREK_VERSION}
-         ports:
-           - "127.0.0.1:<port_not_use_1>:8000"
-         env_file:
-           - .env
-         volumes:
-          - ./var:/app/src/var
-         depends_on:
-           - celery
-         command: gunicorn geotrek.wsgi:application
-    
-      api:
-         image: geotrekce/admin:${GEOTREK_VERSION}
-         ports:
-           - "127.0.0.1:<port_not_use_2>:8000"
-         env_file:
-           - .env
-         volumes:
-          - ./var:/app/src/var
-         depends_on:
-           - web
-           - celery
-         command: gunicorn geotrek.wsgi:application
-    ```
-2. Create a symbolic link between your nginx and /etc/nginx/sites-enable/
+1. Create a symbolic link between your nginx and /etc/nginx/sites-enable/
     ```bash
     ln -s nginx.conf /etc/nginx/sites-enable/geotrek.conf
     ```
-3. Rename your service :
+2. Rename your service :
     ```bash
     mv your_instance_name.service geotrek.service
     ```
-4. Fix Working Directory in <your_instance_name>.service
+3. Fix Working Directory in <your_instance_name>.service
     ```
     WorkingDirectory=/your_directory/
     ```
-5. Copy your service in /etc/systemd/system
+4. Copy your service in /etc/systemd/system
     ```bash
     cp geotrek.service /etc/systemd/system/geotrek.service
     ```
-6. Enable the system
+5. Enable the system
     ```bash
     systemctl enable geotrek.service
     ```
