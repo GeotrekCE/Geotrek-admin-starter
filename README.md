@@ -1,22 +1,12 @@
 # INSTALL GEOTREK INSTANCE
 
-this file describe how to install geotrek instance on makina geotrek docker server
+This file describe how to install geotrek.
 
-# Create a specific branch on gitlab geotrek-admin-deploy-docker from master
-
-## Connect to docker server (passwords in vaultier)
-
-```bash
-ssh root@ip_of_server
-```
-
-## Clone and rename folder in /srv/geotrek
+## Clone the folder
 ```bash
 cd /srv/geotrek
-git clone https://gitlab.makina-corpus.net/geotrek/geotrek-admin-deploy-docker.git your_instance_name
-cd your_instance_name
-git remote add your_instance_name instance_git
-git checkout -b your_instance_name your_instance_name/your_instance_name
+git clone geotrek https://github.com/GeotrekCE/Geotrek-admin-starter.git
+cd geotrek
 ```
 
 ## Create user and database on postgresql server
@@ -75,25 +65,13 @@ Fix at least your :
 - MODELTRANSLATION_LANGUAGES
 - SYNC_RANDO_OPTIONS
 
-## Launch docker stack
-_Use this command only if you do not use docker-compose_
-```bash
-docker stack deploy -c docker-stack.yml your_instance_name
-```
-
 ## Test initialize database and basic data
-_With docker stack :_
-```bash
-docker exec $(docker ps -q -f name="your_instance_name_web") initial.sh
-```
 _With docker-compose :_
 ```bash
 docker-compose run web initial.sh
 ```
 ___________________________
 ___________________________
-
-### Only with Docker Compose :
 
 ## Install Service
 
@@ -149,22 +127,6 @@ ___________________________
 ```bash
 systemctl start your_instance_name
 systemctl stop your_instance_name
-```
-
-___________________________
-___________________________
-
-### Only with Docker Stack :
-
-## Delete instance
-```bash
-docker stack rm your_instance_name
-```
-
-## Redeploy (after update)
-```bash
-docker stack deploy -c docker-stack.yml your_instance_name
-docker exec $(docker ps -q -f name="your_instance_name_web") update.sh
 ```
 
 ## CRON jobs
