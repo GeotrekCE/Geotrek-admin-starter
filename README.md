@@ -104,23 +104,23 @@ ___________________________
     ```
 2. Create a symbolic link between your nginx and /etc/nginx/sites-enable/
     ```bash
-    ln -s nginx.conf /etc/nginx/sites-enable/<your_instance_name>.conf
+    ln -s nginx.conf /etc/nginx/sites-enable/geotrek.conf
     ```
 3. Rename your service :
     ```bash
-    mv your_instance_name.service <your_instance_name>.service
+    mv your_instance_name.service geotrek.service
     ```
 4. Fix Working Directory in <your_instance_name>.service
     ```
-    WorkingDirectory=/srv/geotrek/<your_instance_name>
+    WorkingDirectory=/your_directory/
     ```
 5. Copy your service in /etc/systemd/system
     ```bash
-    cp <your_instance_name>.service /etc/systemd/system/<your_instance_name>.service
+    cp geotrek.service /etc/systemd/system/geotrek.service
     ```
 6. Enable the system
     ```bash
-    systemctl enable <your_instance_name>.service
+    systemctl enable geotrek.service
     ```
 
 ## Run or Stop the service
