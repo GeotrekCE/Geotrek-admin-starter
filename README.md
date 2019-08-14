@@ -4,9 +4,9 @@ This file describe how to install geotrek.
 
 ## Clone the folder
 ```bash
-cd /srv/geotrek
-git clone geotrek https://github.com/GeotrekCE/Geotrek-admin-starter.git
+mkdir -p geotrek
 cd geotrek
+git clone https://github.com/GeotrekCE/Geotrek-admin-starter.git .
 ```
 
 ## Create user and database on postgresql server
@@ -30,11 +30,11 @@ CREATE EXTENSION POSTGIS;
 $ cp .env.dist .env
 ```
 
-## Fill .env with data. If you share postgresql server, you must use docker interface address
+## Fill .env with data. If you share postgresql server, you must use <docker interface> address
 
 ```
 GEOTREK_VERSION=geotrek_version
-POSTGRES_HOST=172.17.0.1 ( | interface_address)
+POSTGRES_HOST=<172.17.0.1> ( | interface_address)
 POSTGRES_USER=your_database_user
 POSTGRES_DB=your_database
 POSTGRES_PASSWORD=your_user_password
@@ -44,9 +44,11 @@ GUNICORN_CMD_ARGS=--bind=0.0.0.0:8000 --workers=5 --timeout=600
 # CONVERSION_HOST=convertit_web
 # CAPTURE_HOST=screamshotter_web
 ```
-For the version of geotrek check : https://hub.docker.com/r/geotrekce/admin/tags/
+For the version of geotrek check : https://geotrek.readthedocs.io/en/master/changelog.html
+It can't be bellow 2.19.0
 
-## Init volume config (with docker-compose)
+
+## Init volume config
 
 ```bash
 docker-compose run web bash exit
@@ -66,7 +68,6 @@ Fix at least your :
 - SYNC_RANDO_OPTIONS
 
 ## Test initialize database and basic data
-_With docker-compose :_
 ```bash
 docker-compose run web initial.sh
 ```
@@ -75,43 +76,37 @@ ___________________________
 
 ## Install Service
 
-1. Create a symbolic link between your nginx and /etc/nginx/sites-enable/
+1. Create a symbolic link between your nginx and /etc/nginx/sites-enabled/
     ```bash
-    ln -s nginx.conf /etc/nginx/sites-enable/geotrek.conf
+    mkdir /var/www/geotrek -p  # This path has to correspond with your root in nginx.conf
+    ln -s geotrek/var/media /var/www/geotrek
+    ln -s geotrek/var/static /var/www/geotrek
+    ln -s nginx.conf /etc/nginx/sites-enabled/geotrek.conf
     ```
-2. Rename your service :
-    ```bash
-    mv your_instance_name.service geotrek.service
+2. Fix Working Directory in geotrek.service
     ```
-3. Fix Working Directory in <your_instance_name>.service
+    WorkingDirectory=<path of geotrek>  # You can use the command : $ pwd
     ```
-    WorkingDirectory=/your_directory/
-    ```
-4. Copy your service in /etc/systemd/system
+3. Copy your service in /etc/systemd/system
     ```bash
     cp geotrek.service /etc/systemd/system/geotrek.service
     ```
-5. Enable the system
+4. Enable the system
     ```bash
     systemctl enable geotrek.service
     ```
 
 ## Run or Stop the service
 ```bash
-systemctl start your_instance_name
-systemctl stop your_instance_name
+systemctl start geotrek
+systemctl stop geotrek
 ```
 
 ## CRON jobs
 
-### Cleanup
-
-edit host's cron to run cleanup.sh
-
 ### Backup
 
 edit host's cron to run backup.sh
-Backup are stored in /var/backups/geotrek/your_instance_name
 
 ### Sync rando
 
@@ -121,4 +116,4 @@ Don't forget to set SYNC_RANDO_OPTIONS in custom.py to set url, portal_url, skip
 
 ### Parsers
 
-edit host's cron to run 
+edit host's cron to run
