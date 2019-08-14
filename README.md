@@ -79,9 +79,9 @@ ___________________________
 1. Create a symbolic link between your nginx and /etc/nginx/sites-enabled/
     ```bash
     mkdir /var/www/geotrek -p  # This path has to correspond with your root in nginx.conf
-    ln -s geotrek/var/media /var/www/geotrek
-    ln -s geotrek/var/static /var/www/geotrek
-    ln -s nginx.conf /etc/nginx/sites-enabled/geotrek.conf
+    ln -s <path of geotrek>/var/media /var/www/geotrek # You can use the command : $ pwd to get the path of geotrek
+    ln -s <path of geotrek>/var/static /var/www/geotrek
+    ln -s <path of geotrek>/nginx.conf /etc/nginx/sites-enabled/geotrek.conf
     ```
 2. Fix Working Directory in geotrek.service
     ```
